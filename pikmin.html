@@ -1,0 +1,167 @@
+const content = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pikmin</title>
+  <style>
+    /* Page background and faint overlay */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #fff;
+      background-image: url('images.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      position: relative;
+    }
+    /* Overlay to make the background fainter — change the alpha to make it lighter/darker */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45); /* 0.45 = fairly faint; lower = lighter background, higher = darker */
+      pointer-events: none;
+    }
+
+    /* Main content container */
+    .container {
+      position: relative; /* sits above the overlay */
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin: 0 0 0.25rem 0;
+      font-size: 2.2rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+      margin-top: 1.25rem;
+      font-size: 1.25rem;
+      color: #ffd;
+    }
+
+    p.lead {
+      margin: 0.25rem 0 1rem 0;
+      color: #f0f0f0;
+      opacity: 0.95;
+    }
+
+    /* Pikmin types list as cards */
+    .pikmin-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.9rem;
+    }
+
+    .pikmin-list li {
+      background: rgba(255,255,255,0.06);
+      padding: 0.8rem;
+      border-radius: 8px;
+      text-align: center;
+      color: #fff;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pikmin-list img {
+      max-width: 80px;
+      height: auto;
+      margin-bottom: 0.4rem;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.03);
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 0.9rem;
+      background: #2ea44f;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(46,164,79,0.18);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+      color: #ddd;
+    }
+
+    /* Small screen tweaks */
+    @media (max-width: 480px) {
+      .container { margin: 1.2rem; padding: 1rem; }
+      h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pikmin</h1>
+    <p class="lead">Small plant-like creatures that help you explore, carry things, and fight enemies. Below are some common types.</p>
+
+    <h2>Types of Pikmin</h2>
+    <ul class="pikmin-list">
+      <li>
+        <!-- Replace the src with your actual image files (e.g., red-pikmin.jpg) -->
+        <img src="red-pikmin.jpg" alt="Red Pikmin (example image)" />
+        <strong>Red Pikmin</strong>
+        <div style="font-size:0.9rem; margin-top:0.3rem;">Strong in battle, immune to fire.</div>
+      </li>
+      <li>
+        <img src="yellow-pikmin.jpg" alt="Yellow Pikmin (example image)" />
+        <strong>Yellow Pikmin</strong>
+        <div style="font-size:0.9rem; margin-top:0.3rem;">Good at carrying bomb rocks; sometimes thrown higher.</div>
+      </li>
+      <li>
+        <img src="blue-pikmin.jpg" alt="Blue Pikmin (example image)" />
+        <strong>Blue Pikmin</strong>
+        <div style="font-size:0.9rem; margin-top:0.3rem;">Can survive in water.</div>
+      </li>
+      <li>
+        <img src="purple-pikmin.jpg" alt="Purple Pikmin (example image)" />
+        <strong>Purple Pikmin</strong>
+        <div style="font-size:0.9rem; margin-top:0.3rem;">Heavier and deal more damage.</div>
+      </li>
+      <li>
+        <img src="ghost-pikmin.jpg" alt="Ghost Pikmin (example image)" />
+        <strong>Ghost Pikmin</strong>
+        <div style="font-size:0.9rem; margin-top:0.3rem;">Special type (game-dependent) — often has unique abilities.</div>
+      </li>
+    </ul>
+
+    <a class="button" href="https://pikmin.nintendo.com/" target="_blank" rel="noopener noreferrer">Official Pikmin site</a>
+
+    
+  </div>
+</body>
+</html>`;
+const blob = new Blob([content], {type: 'text/html'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = 'pikmin.html';
+document.body.appendChild(a);
+a.click();
+a.remove();
+URL.revokeObjectURL(url);
+console.log('pikmin.html downloaded');
